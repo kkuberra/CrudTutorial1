@@ -9,6 +9,7 @@ import NotFound from "./components/NotFound";
 
 import Products from './containers/Products';
 import ViewProduct from './containers/ViewProduct';
+import CreateProduct from './containers/CreateProduct';
 
 class App extends Component {
   render() {
@@ -20,11 +21,12 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/products' component={Products} />
+          <Route exact path='/products/create' component={CreateProduct} />
           <Route path='/products/:id' component={ViewProduct} />
           <Route path='*' component={NotFound} />
         </Switch>
         </main> 
-      </div>
+      </div> 
     );
   }
 }
