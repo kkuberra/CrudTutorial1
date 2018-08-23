@@ -15,9 +15,22 @@ class ProductForm extends Component {
     }))
   };
 
+  validProduct = () => {
+    const { product } = this.state;
+    const hasTitle = product.title.title.trim() !== '';
+    const hasDescription = product.description.trim() !== '';
+    const hasPrice = !isNan(product.price) && Number(product.price) >= 0;
+    const hasQuantity = !isNan(product.quantity) && Number(product.quantity) >= 0;
+    const hasImage = product.image.trim() !== '';
+    
+    return hasTitle && hasDescription && hasPrice && hasQuantity && hasImage;
+  }
+
   formSubmited = (event) => {
     event.preventDefault();
-    console.log(this.state.product)
+    if (this.validProduct()) {
+      this.props.onFormSubmitted(this.state.product);
+    }
   }
 
   render() {
