@@ -1,7 +1,8 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
+import { withRouter } from 'react-router-dom';
 
 import Product from '../components/Product';
-import { getProduct } from '../API'
+import { getProduct, deleteProduct } from '../API'
 
 class ViewProduct extends Component {
     state = {
@@ -10,23 +11,30 @@ class ViewProduct extends Component {
     }
 
     componentDidMount() {
-        const { id } = this.props.match.params 
+        const { id } = this.props.match.params; 
         getProduct(id)
         .then(product => {
             setTimeout(() => {
                 this.setState({
                 product,
                 isLoading: false
-            })
-            }, 1000) 
-        })
+            });
+            }, 1000); 
+        });
+    }
+
+    deleteProduct = () => {
+        deleteProduct(this.state.product.id)
+        .then(() => {
+         this.props.history.push("/products");
+        });
     }
 
     render() {
-        return this.state.isLoading ? <h3>
-            Loading product...
-          </h3> : <Product product={this.state.product} cols="col-12" showStock={true} showEdit={true}/>;
+        return this.state.isLoading ? 
+        <h3>Loading product...</h3> :
+         <Product deleteProduct={this.deleteProduct} product={this.state.product} cols="col-12" showStock={true} editing ={true}/>;
     }
 }
 
-export default ViewProduct;
+export default withRouter(ViewProduct);

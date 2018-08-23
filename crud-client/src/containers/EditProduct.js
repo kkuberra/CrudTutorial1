@@ -45,5 +45,3 @@ class EditProduct extends Component {
 }
 
 export default withRouter(EditProduct);
-// ssdfsad
-// ssdfsad

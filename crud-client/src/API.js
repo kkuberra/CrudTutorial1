@@ -27,3 +27,9 @@ export function updateProduct(id, product) {
     }
   }).then(res => res.json());
 }
+
+export function deleteProduct(id) {
+  return fetch(`${API_URL}/${id}`, {
+    method: "DELETE"
+  }).then(res => res.json());
+}
