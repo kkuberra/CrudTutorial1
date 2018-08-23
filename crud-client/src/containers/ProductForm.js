@@ -17,10 +17,10 @@ class ProductForm extends Component {
 
   validProduct = () => {
     const { product } = this.state;
-    const hasTitle = product.title.title.trim() !== '';
+    const hasTitle = product.title.trim() !== '';
     const hasDescription = product.description.trim() !== '';
-    const hasPrice = !isNan(product.price) && Number(product.price) >= 0;
-    const hasQuantity = !isNan(product.quantity) && Number(product.quantity) >= 0;
+    const hasPrice = !isNaN(product.price) && Number(product.price) >= 0;
+    const hasQuantity = !isNaN(product.quantity) && Number(product.quantity) >= 0;
     const hasImage = product.image.trim() !== '';
     
     return hasTitle && hasDescription && hasPrice && hasQuantity && hasImage;
