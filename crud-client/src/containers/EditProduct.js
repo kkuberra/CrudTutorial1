@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { getProduct } from "../API";
+import { withRouter } from 'react-router-dom';
+import { getProduct, updateProduct } from "../API";
 import ProductForm from './ProductForm';
-// import Product from './Product';
 
 class EditProduct extends Component {
     state = {
         isLoading: true,
         product: {},
-        isEditing: true
+        isEditing: false
     }
 
     componentDidMount() {
@@ -22,12 +22,28 @@ class EditProduct extends Component {
             }, 2000);
         }) 
     }
+
+    updateProduct = (product) => {
+        this.setState({
+            isEditing: true
+        })
+        updateProduct(product.id, product)
+            .then(() => {
+                setTimeout(() => {
+                  this.props.history.push(`/products/${product.id}`);
+                }, 2000);
+            })
+    }
     
     render() {
     return this.state.isLoading ?
         <h2>Loading...</h2> :
-        <ProductForm product={this.state.product} />
+        this.state.isEditing ?
+        <h2>Editing...</h2> :
+        <ProductForm onFormSubmitted={this.updateProduct} product={this.state.product} />
     }
 }
 
-export default EditProduct;
+export default withRouter(EditProduct);
+// ssdfsad
+// ssdfsad
